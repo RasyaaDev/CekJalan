@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-merah: #9F1717;
+  --color-oranye: #C4420E;
+  --color-kuning: #F2B400;
+  --color-hijau: #1E7F3A;
+  --color-abu: #6E7378;
+  --color-tinta: #2B1714;
+  --color-redup: #6B5A55;
+  --color-garis: #E2DDD8;
+  --color-beton: #F3F1EE;
+  --color-aspal: #2F2C2A;
+  --color-sorot: #FFF4EC;
+  --color-isian: #CFC8C1;
+
+  --font-sans: Overpass, system-ui, sans-serif;
+  --font-judul: "Lilita One", Overpass, sans-serif;
+
+  --container-konten: 1200px;
+}
+
+body { @apply bg-white text-tinta font-sans antialiased; }
+.leaflet-container { font-family: Overpass, system-ui, sans-serif; }
