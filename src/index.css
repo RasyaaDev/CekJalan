@@ -22,3 +22,8 @@
 
 body { @apply bg-white text-tinta font-sans antialiased; }
 .leaflet-container { font-family: Overpass, system-ui, sans-serif; }
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid var(--color-kuning);
+  outline-offset: 2px;
+}

@@ -1,0 +1,22 @@
+{
+  "name": "cekjalan-api",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node --watch --env-file=.env src/server.js",
+    "start": "node --env-file=.env src/server.js",
+    "seed": "node --env-file=.env src/seed.js",
+    "scrape": "node --env-file=.env src/scraper/run.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
+    "cheerio": "^1.2.0",
+    "express": "^5.3.0",
+    "multer": "^2.5.0"
+  }
+}
