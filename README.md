@@ -25,6 +25,8 @@ Landing page untuk mengecek kontrak proyek jalan di Sidoarjo — siapa kontrakto
 - 📊 **Rapor kontraktor** — rekam jejak tiap kontraktor secara terbuka.
 - 🏛️ **Panel instansi** — tampilan dashboard untuk Dinas PU Bina Marga.
 
+> **Catatan data garansi.** LPSE tidak mencatat tanggal serah terima maupun masa pemeliharaan. Untuk proyek hasil scrape, tanggal selesai diperkirakan 31 Desember tahun anggaran dengan masa pemeliharaan 12 bulan. Proyek tahun berjalan dibiarkan kosong. Angka ini akan diganti data resmi Dinas PU begitu tersedia.
+
 ## 🧰 Tech Stack
 
 | Kategori | Teknologi |

@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --color-merah: #9F1717;
+  --color-oranye: #C4420E;
+  --color-kuning: #F2B400;
+  --color-hijau: #1E7F3A;
+  --color-abu: #6E7378;
+  --color-tinta: #2B1714;
+  --color-redup: #6B5A55;
+  --color-garis: #E2DDD8;
+  --color-beton: #F3F1EE;
+  --color-aspal: #2F2C2A;
+  --color-sorot: #FFF4EC;
+  --color-isian: #CFC8C1;
+  --color-navy: #1E2A38;
+  --color-navy-2: #2E3D50;
+  --color-kanvas: #F4F5F7;
+  --color-garis-dinas: #DDE3EA;
+  --color-teks-menu: #C9D1DB;
+
+  --font-sans: Overpass, system-ui, sans-serif;
+  --font-judul: "Lilita One", Overpass, sans-serif;
+
+  --container-konten: 1200px;
+}
+
+body { @apply bg-white text-tinta font-sans antialiased; }
+.leaflet-container { font-family: Overpass, system-ui, sans-serif; }
+.leaflet-tile-pane { filter: saturate(0.2) brightness(1.04); }
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid var(--color-kuning);
+  outline-offset: 2px;
+}
+
+@media print {
+  body * { visibility: hidden; }
+  #cetak, #cetak * { visibility: visible; }
+  #cetak { position: absolute; inset: 0 auto auto 0; width: 100%; box-shadow: none; border: 0; }
+}

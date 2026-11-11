@@ -38,6 +38,14 @@ export function nomorWa(nilai) {
   return digit
 }
 
+export function email(nilai) {
+  const hasil = String(nilai ?? '').trim().toLowerCase()
+  if (hasil.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(hasil)) {
+    throw new HttpError(400, 'VALIDASI', 'Alamat email tidak valid')
+  }
+  return hasil
+}
+
 export function batas(nilai, bawaan = 20) {
   const hasil = Number(nilai)
   if (!Number.isInteger(hasil) || hasil < 1) return bawaan

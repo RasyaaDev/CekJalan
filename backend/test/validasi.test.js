@@ -36,3 +36,9 @@ test('batas membatasi limit', () => {
   assert.equal(batas(999), 50)
   assert.equal(batas('abc'), 20)
 })
+
+test('csv menetralkan sel yang bisa jadi formula', async () => {
+  const { csv } = await import('../src/ekspor.js')
+  const hasil = csv([{ a: '=HYPERLINK("x")', b: -7.44, c: '+1' }], ['a', 'b', 'c'])
+  assert.equal(hasil, `a,b,c\r\n"'=HYPERLINK(""x"")",-7.44,'+1\r\n`)
+})
