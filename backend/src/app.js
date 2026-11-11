@@ -1,4 +1,5 @@
 import express from 'express'
+import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import proyek from './routes/proyek.js'
 import laporan from './routes/laporan.js'
@@ -12,6 +13,7 @@ import dinas from './routes/dinas.js'
 export const app = express()
 
 app.disable('x-powered-by')
+if (process.env.TRUST_PROXY) app.set('trust proxy', Number(process.env.TRUST_PROXY) || 1)
 app.use(express.json({ limit: '100kb' }))
 app.use(
   '/uploads',
@@ -39,6 +41,12 @@ app.use('/api', (_req, res) => {
     error: { code: 'TIDAK_DITEMUKAN', message: 'Endpoint tidak ditemukan' },
   })
 })
+
+if (process.env.FRONTEND_DIST) {
+  const folderFrontend = resolve(process.env.FRONTEND_DIST)
+  app.use(express.static(folderFrontend, { index: false, maxAge: '1h' }))
+  app.get('/{*jalur}', (_req, res) => res.sendFile(join(folderFrontend, 'index.html')))
+}
 
 app.use((err, _req, res, _next) => {
   if (err?.name === 'MulterError') {

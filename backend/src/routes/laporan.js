@@ -215,7 +215,9 @@ export async function kabarkan(baris, teksStatus) {
   await kirimEmail({
     ke: baris.pelapor_email,
     subjek: `Laporan ${baris.kode} ${teksStatus.split('.')[0]}`,
-    teks: `Laporan ${baris.kode} ${teksStatus}\n\nLacak laporanmu: ${process.env.FRONTEND_URL ?? '/'}lacak/${baris.kode}`,
+    judul: `Kabar laporan ${baris.kode}`,
+    teks: `Laporan ${baris.kode} ${teksStatus}`,
+    tombol: { label: 'Lacak laporan', url: `${process.env.FRONTEND_URL ?? '/'}lacak/${baris.kode}` },
   }).catch((galat) => console.error(`gagal mengirim email laporan ${baris.kode}:`, galat.message))
 }
 

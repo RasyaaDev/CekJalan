@@ -1,7 +1,6 @@
-const catatan = new Map()
-
 // ponytail: in-memory per instance; pindah ke Redis/express-rate-limit jika API dijalankan multi-instance
 export function batasi({ maks = 10, jendelaMs = 60_000 } = {}) {
+  const catatan = new Map()
   return (req, res, next) => {
     const kunci = req.ip
     const sekarang = Date.now()

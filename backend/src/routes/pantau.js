@@ -40,7 +40,9 @@ router.post('/', batasi({ maks: 10, jendelaMs: 15 * 60_000 }), sesiOpsional, asy
   await kirimEmail({
     ke: alamat,
     subjek: 'Pengingat garansi CekJalan aktif',
-    teks: `Kamu sekarang memantau ${proyek.length} ruas: ${proyek.map((p) => p.ruas).join(', ')}.\n\nKami kabari lewat email sebelum masa garansinya habis.`,
+    judul: 'Pengingat garansi aktif',
+    teks: `Kamu sekarang memantau ${proyek.length} ruas:\n${proyek.map((p) => `• ${p.ruas}`).join('\n')}\n\nKami kabari lewat email sebelum masa garansinya habis, supaya kerusakan masih bisa dilaporkan selagi jadi tanggungan kontraktor.`,
+    tombol: { label: 'Lihat peta proyek', url: `${process.env.FRONTEND_URL ?? '/'}peta` },
   }).catch((e) => console.error('gagal mengirim email pantauan:', e.message))
 
   res.status(201).json({ data: { id: data.id, ruas: proyek.length } })
