@@ -11,12 +11,15 @@
     "start": "node --env-file=.env src/server.js",
     "seed": "node --env-file=.env src/seed.js",
     "scrape": "node --env-file=.env src/scraper/run.js",
-    "test": "node --test"
+    "test": "node --test",
+    "pengingat": "node --env-file=.env src/pengingat/run.js",
+    "petugas": "node --env-file=.env src/petugas/buat.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.118.0",
     "cheerio": "^1.2.0",
     "express": "^5.3.0",
-    "multer": "^2.5.0"
+    "multer": "^2.5.0",
+    "nodemailer": "^10.4.0"
   }
 }

@@ -20,12 +20,23 @@ export function judul(teks) {
     .replace(/(^|[\s(/-])(\p{L})/gu, (_, awal, huruf) => awal + huruf.toUpperCase())
 }
 
-export function rapikanRuas(nama) {
-  return bersihkan(nama)
-    .replace(/^(peningkatan|pembangunan|rehabilitasi|pemeliharaan|penataan|pelebaran)\s+/i, '')
-    .replace(/\b(tender ulang|tender gagal|dibatalkan|dilelang ulang)\b/gi, '')
+export function rapikanTanda(teks) {
+  return teks
+    .replace(/\(\s*\*+\s*\)|\*+/g, ' ')
+    .replace(/\(\s*\)/g, ' ')
+    .replace(/^[\s,./;:-]+|[\s,./;:-]+$/g, '')
+    .replace(/\s+,/g, ',')
     .replace(/\s+/g, ' ')
     .trim()
+}
+
+export function rapikanRuas(nama) {
+  return rapikanTanda(
+    bersihkan(nama)
+      .replace(/^[\s,./;:-]+/, '')
+      .replace(/^(peningkatan|pembangunan|rehabilitasi|pemeliharaan|penataan|pelebaran)\s+/i, '')
+      .replace(/\b(tender ulang|tender gagal|dibatalkan|dilelang ulang)\b/gi, ''),
+  )
 }
 
 export function slugify(teks) {

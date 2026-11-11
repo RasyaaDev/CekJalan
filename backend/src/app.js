@@ -4,6 +4,10 @@ import proyek from './routes/proyek.js'
 import laporan from './routes/laporan.js'
 import kontraktor from './routes/kontraktor.js'
 import peta from './routes/peta.js'
+import auth from './routes/auth.js'
+import pantau from './routes/pantau.js'
+import dataTerbuka from './routes/data.js'
+import dinas from './routes/dinas.js'
 
 export const app = express()
 
@@ -25,6 +29,10 @@ app.use('/api/proyek', proyek)
 app.use('/api/laporan', laporan)
 app.use('/api/kontraktor', kontraktor)
 app.use('/api/peta', peta)
+app.use('/api/auth', auth)
+app.use('/api/pantau', pantau)
+app.use('/api/dinas', dinas)
+app.use('/api', dataTerbuka)
 
 app.use('/api', (_req, res) => {
   res.status(404).json({
@@ -35,10 +43,11 @@ app.use('/api', (_req, res) => {
 app.use((err, _req, res, _next) => {
   if (err?.name === 'MulterError') {
     const batas = err.code === 'LIMIT_FILE_SIZE'
+    const kebanyakan = err.code === 'LIMIT_FILE_COUNT' || err.code === 'LIMIT_UNEXPECTED_FILE'
     return res.status(batas ? 413 : 400).json({
       error: {
         code: 'UNGGAHAN',
-        message: batas ? 'Ukuran foto maksimal 5MB' : 'Gagal mengunggah foto',
+        message: batas ? 'Ukuran foto maksimal 5MB' : kebanyakan ? 'Maksimal 3 foto per laporan' : 'Gagal mengunggah foto',
       },
     })
   }
