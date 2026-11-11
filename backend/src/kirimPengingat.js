@@ -4,6 +4,8 @@ import { jarakMeter } from './exif.js'
 import { akhirGaransi, sisaHariGaransi } from './garansi.js'
 import { PENGATURAN_AWAL, mauKabar, pemantauRuas } from './pengingat.js'
 
+const tanggalPanjang = (iso) => new Date(iso).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+
 export async function ambilPengaturan() {
   const { data, error } = await supabase.from('pengaturan').select('nilai').eq('kunci', 'pengingat').maybeSingle()
   if (error) throw error
@@ -32,9 +34,12 @@ export async function kirimPengingat({ proyek, jenis, pantauan, pengaturan, oleh
     await kirimEmail({
       ke,
       subjek: `Garansi ${proyek.ruas} tinggal ${sisa} hari`,
+      judul: `Garansi ${proyek.ruas} tinggal ${sisa} hari`,
       teks:
-        `Masa pemeliharaan ${proyek.ruas} berakhir ${akhir}. Kalau ada kerusakan, laporkan sebelum tanggal itu ` +
-        `supaya perbaikannya ditanggung kontraktor.\n\nLapor: ${process.env.FRONTEND_URL ?? '/'}lapor`,
+        `Masa pemeliharaan ${proyek.ruas} berakhir ${tanggalPanjang(akhir)}.\n\n` +
+        'Ada lubang atau retak baru? Laporkan sebelum tanggal itu supaya perbaikannya ditanggung kontraktor, bukan anggaran daerah.',
+      tombol: { label: 'Lapor kerusakan', url: `${process.env.FRONTEND_URL ?? '/'}lapor` },
+      catatan: 'Kamu menerima email ini karena memantau ruas tersebut di CekJalan.',
     }).catch((galat) => console.error(`gagal mengirim pengingat ke ${ke}:`, galat.message))
   }
 

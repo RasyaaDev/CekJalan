@@ -63,7 +63,10 @@ router.post('/daftar', batasi({ maks: 5, jendelaMs: 15 * 60_000 }), async (req, 
   await kirimEmail({
     ke: alamat,
     subjek: `Kode verifikasi CekJalan: ${kode}`,
-    teks: `Kode verifikasi akun CekJalan kamu: ${kode}\n\nBerlaku 10 menit. Abaikan email ini kalau kamu tidak mendaftar.`,
+    judul: 'Verifikasi email kamu',
+    teks: `Halo ${profil.nama.split(' ')[0]}, tinggal satu langkah lagi. Masukkan kode ini di halaman pendaftaran CekJalan.`,
+    kode,
+    catatan: 'Kode berlaku 10 menit. Abaikan email ini kalau kamu tidak mendaftar.',
   })
 
   res.json({ data: { terkirim: true, jeda_detik: JEDA_KIRIM_MS / 1000 } })
@@ -132,6 +135,16 @@ router.post('/masuk', batasi({ maks: 10, jendelaMs: 15 * 60_000 }), async (req, 
   await buatSesi(res, data.id)
   res.json({ data: await wargaDariSesiId(data.id) })
 })
+
+async function wargaDariSesiId(id) {
+  const { data, error } = await supabase
+    .from('warga')
+    .select('id,email,nama,kecamatan,pengingat_kecamatan')
+    .eq('id', id)
+    .single()
+  if (error) throw error
+  return data
+}
 
 router.get('/saya', async (req, res) => {
   res.json({ data: await wargaDariSesi(req) })
